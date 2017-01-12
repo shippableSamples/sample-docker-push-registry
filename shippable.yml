@@ -1,0 +1,15 @@
+language: none
+
+build:
+  ci:
+    - echo 'CI Running'
+    - export IMAGE_NAME= # e.g. 027746667844.dkr.ecr.us-east-1.amazonaws.com/sample-shipdemo
+    - if [ "$IS_PULL_REQUEST" == false ]; then sudo docker build -t $IMAGE_NAME:$BRANCH.$BUILD_NUMBER .; fi
+
+  post_ci:
+    - if [ "$IS_PULL_REQUEST" == false ]; then sudo docker push $IMAGE_NAME:$BRANCH.$BUILD_NUMBER; fi
+
+integrations:
+  hub:
+    - integrationName: #your ECR integration name
+      type: ecr
