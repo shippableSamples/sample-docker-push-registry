@@ -1,0 +1,22 @@
+resources:
+  - name: shipdemo-img
+    type: image
+    integration: # your Amazon ECR integration
+    pointer:
+      sourceName: "027746667844.dkr.ecr.us-east-1.amazonaws.com/sample-shipdemo" # replace with a pointer to your docker image
+      isPull: false
+    seed:
+      versionName: "latest"  #replace with your image tag on Amazon ECR
+
+  - name: shipdemo-img-options
+    type: dockerOptions
+    version:
+      portMappings:
+        - 80:80
+
+  - name: ecs-test-cluster
+    type: cluster
+    integration: aws  # your Amazon ECS integration
+    pointer:
+      sourceName : "my-cluster" #replace with name of the cluster to which you are deploying
+      region: "us-west-2" #replace with region of the cluster to which you are deploying

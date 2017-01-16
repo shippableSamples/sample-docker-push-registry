@@ -1,0 +1,15 @@
+jobs:
+  - name: shipdemo-manifest
+    type: manifest
+    steps:
+     - IN: shipdemo-img
+     - TASK: managed
+
+  - name: shipdemo-test-deploy
+    type: deploy
+    steps:
+      - IN: shipdemo-manifest
+      - IN: shipdemo-img-options
+      - IN: ecs-test-cluster
+      - TASK: managed
+        deployMethod: upgrade
